@@ -3,30 +3,43 @@ package com.guyo.cityguide.Common;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.guyo.cityguide.HelperClasses.SliderAdapter;
 import com.guyo.cityguide.R;
+import com.guyo.cityguide.User.UserDashboard;
 
 public class onBoarding extends AppCompatActivity {
 
     ViewPager viewPager;
     LinearLayout dotsLayout;
+    Button letsGetStartedButton;
+
+    Animation animation;
 
     SliderAdapter sliderAdapter;
     TextView[] dots;
+    int currentPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_on_boarding);
 
         //hooks
         viewPager = findViewById(R.id.slider);
         dotsLayout = findViewById(R.id.dots);
+        letsGetStartedButton = findViewById(R.id.getStaredButton);
 
         //call adapter
         sliderAdapter = new SliderAdapter(this);
@@ -36,6 +49,15 @@ public class onBoarding extends AppCompatActivity {
         addDots(0);
         viewPager.addOnPageChangeListener(changeListener);
     }
+
+    public void skip(View view){
+        Intent intent = new Intent(onBoarding.this, UserDashboard.class);
+        startActivity(intent);
+        finish();
+    }
+//    public  void next(View view){
+//       ViewPager.setCurrentItem(currentPosition + 1);
+//    }
 
     private void addDots(int position){
         dots = new TextView[4];
@@ -62,6 +84,19 @@ public class onBoarding extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addDots(position);
+            currentPosition = position;
+
+            if(position == 0){
+                letsGetStartedButton.setVisibility(View.INVISIBLE);
+            }else if(position == 1){
+                letsGetStartedButton.setVisibility(View.INVISIBLE);
+            }else if(position == 2){
+                letsGetStartedButton.setVisibility(View.INVISIBLE);
+            }else{
+                animation = AnimationUtils.loadAnimation(onBoarding.this, R.anim.bottom_anim);
+                letsGetStartedButton.setAnimation(animation);
+                letsGetStartedButton.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override

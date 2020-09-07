@@ -8,6 +8,19 @@
     tools:context=".Common.onBoarding">
 
 
+    <Button
+        android:id="@+id/skipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skip_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        android:background="#00000000"
+        android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
+        android:drawableRight="@drawable/ic_baseline_navigate_next_24"
+        android:onClick="skip"/>
+
     <androidx.viewpager.widget.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/slider"
@@ -36,7 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:text="@string/let_get_started" />
+            android:text="@string/let_get_started"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:id="@+id/dots"
@@ -55,7 +69,8 @@
             android:paddingBottom="30dp"
             android:background="#00000000"
             android:drawableEnd="@drawable/ic_baseline_navigate_next_24"
-            android:drawableRight="@drawable/ic_baseline_navigate_next_24"/>
+            android:drawableRight="@drawable/ic_baseline_navigate_next_24"
+            android:onClick="next"/>
 
     </RelativeLayout>
 
